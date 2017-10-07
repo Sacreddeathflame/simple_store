@@ -6,13 +6,8 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @count = @products.count
-    @avg_price = 0
-    @total_stock = 0
-
-    @products.each { |product|
-      @avg_price += product.price
-      @total_stock += product.stock_quantity
-    }
+    @avg_price = @products.average(:price)
+    @total_stock = @products.sum(:stock_quantity)
   end
 
   # GET /products/1
